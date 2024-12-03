@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Проверка погодных условий</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .error { color: red; }
+        .form-group { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Проверка погодных условий на маршруте</h1>
+    {% if error_message %}
+        <p class="error">{{ error_message }}</p>
+    {% endif %}
+    <form method="post" action="/">
+        <div class="form-group">
+            <label for="start_location">Начальная точка:</label><br>
+            <input type="text" id="start_location" name="start_location" value="{{ form_data.start_location if form_data else '' }}" required><br>
+            {% if errors and errors.get('start_location') %}
+                <span class="error">{{ errors.get('start_location') }}</span>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <label for="end_location">Конечная точка:</label><br>
+            <input type="text" id="end_location" name="end_location" value="{{ form_data.end_location if form_data else '' }}" required><br>
+            {% if errors and errors.get('end_location') %}
+                <span class="error">{{ errors.get('end_location') }}</span>
+            {% endif %}
+        </div>
+        <button type="submit">Проверить погоду</button>
+    </form>
+</body>
+</html>
